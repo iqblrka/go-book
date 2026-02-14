@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="164" pageHeight="842" columnWidth="124" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d7e08b1-a342-469e-8296-93ac80a940e7">
+	<property name="ireport.zoom" value="3.1384283767210137"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="571"/>
+	<parameter name="id_transaksi_jual" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="total_bayar" class="java.lang.String"/>
+	<parameter name="kembalian" class="java.lang.String"/>
+	<parameter name="uang_bayar" class="java.lang.String"/>
+	<parameter name="diskon" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+    tj.id_transaksi_jual, 
+    tj.id_detail,
+    tj.harga_jual, 
+    tj.jumlah, 
+    tj.tgl_jual, 
+    tj.id_barang, 
+    b.jenis_barang, 
+    b.nama_barang, 
+    tj.idMember,
+    tj.total_jual, 
+    m.nama_member,
+    m.diskon 
+FROM transaksi_jual tj 
+INNER JOIN barang b ON tj.id_barang = b.id_barang 
+LEFT JOIN member m ON tj.idMember = m.idMember 
+WHERE tj.id_transaksi_jual = $P{id_transaksi_jual}
+ORDER BY tj.id_detail]]>
+	</queryString>
+	<field name="id_transaksi_jual" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_detail" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="harga_jual" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jumlah" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tgl_jual" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_barang" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jenis_barang" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_barang" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idMember" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_jual" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_member" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="diskon" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="tgl_jual_1" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{tgl_jual}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="15" y="36" width="91" height="14" uuid="ec4c5859-6d2e-4c6d-a84f-ffea7d1ed8d5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTA PEMBELIAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="50" width="100" height="8" uuid="49484de4-12a7-44f8-9b76-68c4b212d917"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MBP MART]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-77" y="58" width="275" height="10" uuid="5c9faaac-deb5-44fa-b920-4c4aebe3aa3b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="4" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dsn.Tukdadap,Sukoharjo,Wilangan,Nganjuk]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="68" width="124" height="1" uuid="4487c214-0c4f-4f4e-b489-4b44d94db053"/>
+			</line>
+			<staticText>
+				<reportElement x="11" y="42" width="100" height="8" uuid="ed90c1ff-d686-41df-a1fa-bccc6b2fbae8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Toko Kelontong]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="47" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="12" width="100" height="8" uuid="16e5a3bb-3af7-4aa5-b468-1d892709d097"/>
+				<textElement>
+					<font fontName="Monospaced" size="5" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_member} != null && !$F{nama_member}.isEmpty() ? "Nama Member : " + $F{nama_member} : "Non Member"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="2" width="113" height="12" uuid="89dddb31-53ea-44ee-be0c-800cb18887e3"/>
+				<textElement>
+					<font fontName="Monospaced" size="5" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["No. Pesanan : " + $P{id_transaksi_jual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="23" width="54" height="10" uuid="bebfb5cb-65d1-40c2-ab8e-ec2f5dfe266f"/>
+				<textElement>
+					<font fontName="Monospaced" size="5" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Kasir : Budi "]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="46" width="124" height="1" uuid="d9998fc2-3f3b-4b91-a605-66171ff5a7f0"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="9" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="9" uuid="c0140f95-ab49-4778-b6b6-cacdb44a33ac"/>
+				<textElement>
+					<font fontName="Monospaced" size="5" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_barang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="9" width="65" height="11" uuid="4be40aa3-e019-4a33-a1ad-b4923b096a57"/>
+				<textElement>
+					<font fontName="Monospaced" size="5" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jumlah} + " x Rp " + String.format("%,d", $F{harga_jual}.intValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="9" width="38" height="11" uuid="ba37abdf-fe5d-40a0-96b1-e9c9e297be82"/>
+				<textElement>
+					<font fontName="Monospaced" size="5" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Rp" + String.format("%,d", $F{harga_jual}.intValue())]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="119" splitType="Stretch">
+			<staticText>
+				<reportElement x="5" y="72" width="110" height="21" uuid="2e0aca90-149a-4f2e-86a0-e6e9e469a993"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terima kasih telah berbelanja di toko kami 😊
+Semoga hari Anda menyenangkan!]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="5" width="100" height="12" uuid="994dce0b-97e2-480c-8fdc-56ea55a28e8f"/>
+				<textElement>
+					<font fontName="Monospaced" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total Bayar : " + $P{total_bayar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="17" width="100" height="13" uuid="541fb26a-b9d9-42e6-abd2-6be2499403be"/>
+				<textElement>
+					<font fontName="Monospaced" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Uang Bayar  : " + $P{uang_bayar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="30" width="100" height="20" uuid="bec504ff-8fa6-4a66-b809-e421f45dce40"/>
+				<textElement>
+					<font fontName="Monospaced" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Kembalian   : " + $P{kembalian}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="1" width="124" height="1" uuid="5478e0dd-000f-4625-b0c8-3e9a08e2194b"/>
+			</line>
+			<textField>
+				<reportElement x="1" y="50" width="100" height="20" uuid="a2eb509e-5ddc-4d5c-86af-db7b9620e2da"/>
+				<textElement>
+					<font fontName="Monospaced" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Diskon : " + ($P{diskon} == null || $P{diskon}.intValue() == 0 ? "Anda Belum Beruntung" : $F{diskon} + "%")
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
